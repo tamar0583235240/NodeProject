@@ -1,10 +1,13 @@
 const Recipe = require('../models/Recipe');
+console.log("Recipe",Recipe);
+
 exports.AddRecipe  =async (req, res) => {
     const recipe = await Recipe.create(req.body);
     res.json(recipe)
 }
 
 exports.AllRecipe  =async (req, res) => {
+  
     try {
         const recipe = await Recipe.find();
         res.json(recipe);
@@ -15,7 +18,7 @@ exports.AllRecipe  =async (req, res) => {
 }
 exports.DeleteRecipe =async (req, res) => {
   const  recipeName  = req.params.name;
-  console.log(recipeName+"bbbb");
+  
     try {
       const deletedRecipe = await recipes.findOneAndDelete({ name: recipeName });
       if (!deletedRecipe) {
@@ -28,6 +31,25 @@ exports.DeleteRecipe =async (req, res) => {
     }
 }
 
-exports.UpdateRecipe = (req, res) => {
-    
+exports.UpdateRecipe =async (req, res) => {
+
+  const { recipeName } = req.params;
+  const {name,category,instructions } = req.body;
+
+  try {
+    const updatedRecipe = await User.findOneAndUpdate(
+      { name: recipeName }, 
+      { category: category },
+      { instructions: instructions }
+    );
+
+    if (!updatedRecipe) {
+      return res.status(404).json({ message: 'recipe not found' });
+    }
+
+    res.json(updatedRecipe);
+  } catch (error) {
+    console.error('Failed to update recipe: ', error);
+    res.status(500).json({ message: 'Failed to update recipe ' });
+  }
 }

@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.post('/AllRecipe',AllRecipe)
 router.post('/AddRecipe',AddRecipe);
-// router.get('/AllRecipe',AllRecipe);
 router.delete('/DeleteRecipe',DeleteRecipe);
 router.put('/UpdateRecipe',UpdateRecipe);
 
