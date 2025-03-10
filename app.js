@@ -11,9 +11,10 @@ connectDB()
 
 
 //middlewares
-app.use(cors(corsOptions))
-app.use(express.json())
-app.use(express.static("public"))
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.static("public"));
+app.use("/api/recipe", require("./routes/recipeRoutes"));
 //routes
 app.get("/", (req, res) => {
     res.send("this is the home page")
